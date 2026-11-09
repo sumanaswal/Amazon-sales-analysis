@@ -1010,7 +1010,9 @@ ORDER BY week_start;
 
 
 
-
+select count(distinct order_id)
+from clean.sales
+where status_group = 'Completed' and amount > 0;
 
 
 
