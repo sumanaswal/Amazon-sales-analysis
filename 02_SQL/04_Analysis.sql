@@ -1009,13 +1009,21 @@ ORDER BY week_start;
 
 
 
-
-select count(distinct order_id)
+select
+	round(sum(amount) filter(where status_group = 'Cancelled') / 100000,2) as cancelled_loss_in_lakh,
+	round(sum(amount) filter(where status_group = 'Returned') / 100000,2) as returned_loss_in_lakh,
+	round(100.0 *count(order_id) filter (where status_group = 'Cancelled' and amount is null) 
+	/ count(order_id) filter (where status_group = 'Cancelled'),2) as blank_amounts_pct,
+	round(100.0 * count(order_id) filter (where status_group = 'Cancelled' ) 
+	/ count(order_id),2) as cancelled_order_lines_pct,
+	round(100.0 * count(order_id) filter (where status_group = 'Cancelled' and fulfilment = 'Merchant' ) 
+	/ count(order_id) filter (where fulfilment = 'Merchant'),2) as easy_ship_cancelled_orders_lines,
+	round(100.0 * count(order_id) filter (where status_group = 'Cancelled' and fulfilment = 'Amazon' ) 
+	/ count(order_id) filter (where fulfilment = 'Amazon'),2) as amazon_cancelled_orders_lines
 from clean.sales
-where status_group = 'Completed' and amount > 0;
 
 
-
+select * from clean.sales limit 4;
 
 
 

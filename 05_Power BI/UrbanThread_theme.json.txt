@@ -1,0 +1,7 @@
+{
+  "name": "UrbanThread",
+  "dataColors": ["#1F3A5F", "#2A7F9E", "#C8553D", "#8AA6B8", "#E9B44C", "#5B6770"],
+  "background": "#FFFFFF",
+  "foreground": "#1B2A3A",
+  "tableAccent": "#1F3A5F"
+}
